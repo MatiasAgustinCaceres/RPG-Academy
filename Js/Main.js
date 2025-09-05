@@ -1,14 +1,18 @@
+import { Especializacion } from './Especializacion.js';
+
 document.addEventListener('DOMContentLoaded', function () {
   const especializaciones = [
-    { nombre: "Espada", profesion: "Guerrero", descripción: "Al elegir la espada como tu arma seguiras el camino del Caballero. Disiplinados y valerosos gerreros.", creditosRequeridos: 25 },
-    { nombre: "Hacha", profesion: "Guerrero", descripción: "Al elegir la hacha como tu arma seguiras el camino del Bárbaro. Salvajes y feroces gerreros.", creditosRequeridos: 50 },
-    { nombre: "Maza", profesion: "Guerrero", descripción: "Al elegir la maza como tu arma seguiras el camino del Templario. Resistentes e incorruptibles gerreros.", creditosRequeridos: 75 },
-    { nombre: "Libro de mágia elemental", profesion: "Mago", descripción: "El Libro de mágia elemental te llevará por el camino de los Hechiceros. Poderosos magos capaces de manipular los elementos y la naturaleza.", creditosRequeridos: 25 },
-    { nombre: "Báculo de invocación", profesion: "Mago", descripción: "El Báculo de invocación te llevará por le camino del los Invocadores. Poderosos magos capaces de invocar criaturas. Ya sean, o no, de este mundo.", creditosRequeridos: 50 },
-    { nombre: "Amuleto de Druida", profesion: "Mago", descripción: "El Amuleto de Druida te llevará por le camino del los Druidas. Poderosos magos capaces de sanar cualquier Herida y con el don de la clarividencia.", creditosRequeridos: 75 },
-    { nombre: "Arco", profesion: "Picaro", descripción: "Dominar el Arco te permitirá eliminar a tus enemigos antes de que ellos puedan tocarte.", creditosRequeridos: 25 },
-    { nombre: "Dagas", profesion: "Picaro", descripción: "Dominar las Dagas te permitirá eliminar a tus enemigos antes de que estos noten tu presencia. Las sombras serán tus mejores aliadas.", creditosRequeridos: 50 },
-    { nombre: "Bastón de monje", profesion: "Picaro", descripción: "Dominar Bastón de monje requiere de una impecable agilidad y autocontrol. Tu mente y cuerpo deben ser uno.", creditosRequeridos: 75 }
+    new Especializacion("Caballero", "Espada", "Guerrero", "Al elegir la espada como tu arma seguirás el camino del Caballero. Disciplinados y valerosos guerreros.", 25),
+    new Especializacion("Bárbaro", "Hacha", "Guerrero", "Al elegir la hacha como tu arma seguirás el camino del Bárbaro. Salvajes y feroces guerreros.", 50),
+    new Especializacion("Templario", "Maza", "Guerrero", "Al elegir la maza como tu arma seguirás el camino del Templario. Resistentes e incorruptibles guerreros.", 75),
+
+    new Especializacion("Hechicero", "Libro de mágia elemental", "Mago", "El Libro de mágia elemental te llevará por el camino de los Hechiceros. Poderosos magos capaces de manipular los elementos y la naturaleza.", 25),
+    new Especializacion("Invocador", "Báculo de invocación", "Mago", "El Báculo de invocación te llevará por el camino de los Invocadores. Poderosos magos capaces de invocar criaturas. Ya sean, o no, de este mundo.", 50),
+    new Especializacion("Druida", "Amuleto de Druida", "Mago", "El Amuleto de Druida te llevará por el camino de los Druidas. Poderosos magos capaces de sanar cualquier herida y con el don de la clarividencia.", 75),
+
+    new Especializacion("Arquero", "Arco", "Picaro", "Dominar el Arco te permitirá eliminar a tus enemigos antes de que ellos puedan tocarte.", 25),
+    new Especializacion("Asesino", "Dagas", "Picaro", "Dominar las Dagas te permitirá eliminar a tus enemigos antes de que estos noten tu presencia. Las sombras serán tus mejores aliadas.", 50),
+    new Especializacion("Monje", "Bastón de monje", "Picaro", "Dominar el Bastón de monje requiere de una impecable agilidad y autocontrol. Tu mente y cuerpo deben ser uno.", 75),
   ];
 
   const btnSiguiente = document.getElementById('btn-siguiente');
@@ -44,8 +48,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (opciones.length > 0) {
       opciones.forEach(op => {
         const option = document.createElement('option');
-        option.value = op.nombre;
-        option.textContent = op.nombre;
+        option.value = op.arma;
+        option.textContent = op.arma;
         selectArma.appendChild(option);
       });
 
@@ -58,11 +62,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   selectArma.addEventListener('change', () => {
     const armaSeleccionada = selectArma.value;
-    const especializacion = especializaciones.find(e => e.nombre === armaSeleccionada);
+    const especializacion = especializaciones.find(e => e.arma === armaSeleccionada);
 
     if (especializacion) {
       descripcionDiv.innerHTML = `
-        <p>${especializacion.descripción}</p>
+        <p>${especializacion.descripcion}</p>
         <p><strong>Créditos requeridos:</strong> ${especializacion.creditosRequeridos}</p>
       `;
       descripcionDiv.classList.remove('hidden');
@@ -75,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
   btnFinalizar.addEventListener('click', () => {
     const nombre = document.getElementById('nombre').value;
     const arma = selectArma.value;
-    const especializacion = especializaciones.find(e => e.nombre === arma);
+    const especializacion = especializaciones.find(e => e.arma === arma);
 
     if (!especializacion) {
       alert("Por favor, selecciona un arma válida.");
@@ -87,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('cred-nombre').innerText = nombre;
     document.getElementById('cred-profesion').innerText = especializacion.profesion;
     document.getElementById('cred-especialidad').innerText = especializacion.nombre;
+    document.getElementById('cred-arma').innerText = especializacion.arma;
     document.getElementById('cred-creditos').innerText = creditosRestantes;
 
     document.getElementById('step1').classList.add('hidden');
