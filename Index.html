@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de Personaje</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <h2>Crear Personaje</h2>
+
+  <div id="step1">
+    <label for="nombre">¿Cuál es tu nombre?</label>
+    <input type="text" id="nombre" required>
+    <button id="btn-siguiente">Siguiente</button>
+  </div>
+
+  <div id="step2" class="hidden">
+    <label for="clase">Elige una clase:</label>
+    <select id="clase">
+      <option value="">--Selecciona una clase--</option>
+      <option value="Guerrero">Guerrero</option>
+      <option value="Mago">Mago</option>
+      <option value="Picaro">Pícaro</option>
+    </select>
+  </div>
+
+  <div id="step3" class="hidden">
+    <label for="arma">Elige un arma:</label>
+    <select id="arma"></select>
+
+    <div id="descripcion-arma" class="descripcion hidden"></div>
+
+    <button id="btn-finalizar">Finalizar</button>
+  </div>
+
+  <div id="resultado" class="result hidden"></div>
+
+  <script src="js/Main.js"></script>
+</body>
+</html>
