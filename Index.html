@@ -34,8 +34,25 @@
     <button id="btn-finalizar">Finalizar</button>
   </div>
 
-  <div id="resultado" class="result hidden"></div>
+  <!-- Credencial de estudiante -->
+  <div id="credencial" class="credencial hidden">
+    <h3>Credencial de estudiante</h3>
+    <p><strong>Nombre:</strong> <span id="cred-nombre"></span></p>
+    <p><strong>Profesión:</strong> <span id="cred-profesion"></span></p>
+    <p><strong>Especialidad:</strong> <span id="cred-especialidad"></span></p>
+    <p><strong>Créditos restantes:</strong> <span id="cred-creditos"></span></p>
+  </div>
 
+  <!-- Botones debajo de la credencial -->
+  <div id="acciones-finales" class="hidden">
+    <div class="botones-credencial">
+      <button id="btn-reiniciar">Reiniciar</button>
+      <button id="btn-ir-store">Ir al store</button>
+    </div>
+    <p id="mensaje-siguiente" class="mensaje hidden">Store Coming Soon</p>
+  </div>
+
+  <!-- Main script -->
   <script src="js/Main.js"></script>
 </body>
 </html>

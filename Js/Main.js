@@ -16,7 +16,12 @@ document.addEventListener('DOMContentLoaded', function () {
   const selectClase = document.getElementById('clase');
   const selectArma = document.getElementById('arma');
   const descripcionDiv = document.getElementById('descripcion-arma');
-  const resultadoDiv = document.getElementById('resultado');
+
+  const credencialDiv = document.getElementById('credencial');
+  const accionesFinalesDiv = document.getElementById('acciones-finales');
+  const mensajeSiguiente = document.getElementById('mensaje-siguiente');
+  const btnReiniciar = document.getElementById('btn-reiniciar');
+  const btnIrStore = document.getElementById('btn-ir-store');
 
   btnSiguiente.addEventListener('click', () => {
     const nombre = document.getElementById('nombre').value.trim();
@@ -31,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
   selectClase.addEventListener('change', () => {
     const clase = selectClase.value;
     const opciones = especializaciones.filter(e => e.profesion === clase);
-    
+
     selectArma.innerHTML = "";
     descripcionDiv.classList.add('hidden');
     descripcionDiv.innerText = "";
@@ -77,12 +82,27 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    resultadoDiv.innerHTML = `
-      <p><strong>${nombre}</strong> ha elegido el camino del <strong>${especializacion.profesion}</strong>.</p>
-      <p>Su arma será <strong>${especializacion.nombre}</strong>.</p>
-      <p>${especializacion.descripción}</p>
-      <p><strong>Créditos requeridos:</strong> ${especializacion.creditosRequeridos}</p>
-    `;
-    resultadoDiv.classList.remove('hidden');
+    const creditosRestantes = 100 - especializacion.creditosRequeridos;
+
+    document.getElementById('cred-nombre').innerText = nombre;
+    document.getElementById('cred-profesion').innerText = especializacion.profesion;
+    document.getElementById('cred-especialidad').innerText = especializacion.nombre;
+    document.getElementById('cred-creditos').innerText = creditosRestantes;
+
+    document.getElementById('step1').classList.add('hidden');
+    document.getElementById('step2').classList.add('hidden');
+    document.getElementById('step3').classList.add('hidden');
+    descripcionDiv.classList.add('hidden');
+
+    credencialDiv.classList.remove('hidden');
+    accionesFinalesDiv.classList.remove('hidden');
+  });
+
+  btnReiniciar.addEventListener('click', () => {
+    location.reload();
+  });
+
+  btnIrStore.addEventListener('click', () => {
+    mensajeSiguiente.classList.remove('hidden');
   });
 });
