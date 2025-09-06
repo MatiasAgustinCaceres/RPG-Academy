@@ -44,6 +44,7 @@ if (jugadorGuardado) {
   accionesFinalesDiv.classList.remove('hidden');
 }
 
+// Pedido de nombre
 btnSiguiente.addEventListener('click', () => {
   const nombre = document.getElementById('nombre').value.trim();
   const mensajeError = document.getElementById("mensaje-error-nombre"); 
@@ -60,6 +61,7 @@ btnSiguiente.addEventListener('click', () => {
   document.getElementById('pedido-clase').classList.remove('hidden');
 });
 
+// Selección de la clase
 selectClase.addEventListener('change', () => {
   const clase = selectClase.value;
   const opciones = especializaciones.filter(e => e.profesion === clase);
@@ -90,6 +92,7 @@ selectClase.addEventListener('change', () => {
   document.getElementById('pedido-arma').classList.remove('hidden');
 });
 
+// Selección del arma y presentación de la credencial.
 btnFinalizar.addEventListener('click', () => {
   const nombre = document.getElementById('nombre').value.trim();
   const mensajeError = document.getElementById("mensaje-error-arma"); 
@@ -126,6 +129,7 @@ btnFinalizar.addEventListener('click', () => {
   accionesFinalesDiv.classList.remove('hidden');
 });
 
+// Botones Reiniciar e Ir al Storege
 btnReiniciar.addEventListener('click', () => {
   localStorage.removeItem('jugador');
   location.reload();
