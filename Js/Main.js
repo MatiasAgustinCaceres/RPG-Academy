@@ -37,9 +37,9 @@ if (jugadorGuardado) {
   document.getElementById('cred-arma').innerText = j.armaPrincipal;
   document.getElementById('cred-creditos').innerText = j.balanceCreditos;
 
-  document.getElementById('step1').classList.add('hidden');
-  document.getElementById('step2').classList.add('hidden');
-  document.getElementById('step3').classList.add('hidden');
+  document.getElementById('pedido-nombre').classList.add('hidden');
+  document.getElementById('pedido-clase').classList.add('hidden');
+  document.getElementById('pedido-arma').classList.add('hidden');
   credencialDiv.classList.remove('hidden');
   accionesFinalesDiv.classList.remove('hidden');
 }
@@ -50,8 +50,8 @@ btnSiguiente.addEventListener('click', () => {
     alert("Por favor, ingresa tu nombre.");
     return;
   }
-  document.getElementById('step1').classList.add('hidden');
-  document.getElementById('step2').classList.remove('hidden');
+  document.getElementById('pedido-nombre').classList.add('hidden');
+  document.getElementById('pedido-clase').classList.remove('hidden');
 });
 
 selectClase.addEventListener('change', () => {
@@ -81,7 +81,7 @@ selectClase.addEventListener('change', () => {
     opcionesArmasDiv.appendChild(card);
   });
 
-  document.getElementById('step3').classList.remove('hidden');
+  document.getElementById('pedido-arma').classList.remove('hidden');
 });
 
 btnFinalizar.addEventListener('click', () => {
@@ -107,9 +107,9 @@ btnFinalizar.addEventListener('click', () => {
   document.getElementById('cred-arma').innerText = jugador.armaPrincipal;
   document.getElementById('cred-creditos').innerText = jugador.balanceCreditos;
 
-  document.getElementById('step1').classList.add('hidden');
-  document.getElementById('step2').classList.add('hidden');
-  document.getElementById('step3').classList.add('hidden');
+  document.getElementById('pedido-nombre').classList.add('hidden');
+  document.getElementById('pedido-clase').classList.add('hidden');
+  document.getElementById('pedido-arma').classList.add('hidden');
   credencialDiv.classList.remove('hidden');
   accionesFinalesDiv.classList.remove('hidden');
 });

@@ -1,10 +1,10 @@
 export class Especializacion {
   constructor(nombre, arma, profesion, descripcion, creditosRequeridos, imagen) {
-    this.nombre = nombre; // Ej: Caballero
-    this.arma = arma; // Ej: Espada
-    this.profesion = profesion; // Guerrero, Mago, Picaro
+    this.nombre = nombre; 
+    this.arma = arma; 
+    this.profesion = profesion; 
     this.descripcion = descripcion;
     this.creditosRequeridos = creditosRequeridos;
-    this.imagen = imagen; // Ruta a la imagen del arma
+    this.imagen = imagen; 
   }
 }

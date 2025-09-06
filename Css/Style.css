@@ -28,21 +28,6 @@ input, select, button {
   display: none;
 }
 
-.result {
-  background: #e0ffe0;
-  padding: 10px;
-  margin-top: 15px;
-  border: 1px solid #b2d8b2;
-}
-
-.descripcion {
-  background-color: #fff6d1;
-  border-left: 4px solid #ffc107;
-  padding: 10px;
-  margin-bottom: 15px;
-  font-style: italic;
-}
-
 .credencial {
   background: #ffffff;
   border: 2px solid #333;
@@ -77,8 +62,6 @@ input, select, button {
   color: #888;
 }
 
-/* NUEVOS ESTILOS PARA LA SELECCIÓN DE ARMAS */
-
 #opciones-armas {
   display: flex;
   flex-direction: column;
@@ -98,13 +81,13 @@ input, select, button {
   border-radius: 6px;
 
   width: 100%;
-  min-height: 175px; /* aumentado un 25% (140 * 1.25) */
+  min-height: 175px;
   box-sizing: border-box;
 }
 
 .card-arma img {
-  width: 150px;  /* aumentado un 25% (120 * 1.25) */
-  height: 150px; /* aumentado un 25% */
+  width: 150px;
+  height: 150px;
   object-fit: contain;
   border-radius: 4px;
   flex-shrink: 0;
@@ -112,12 +95,12 @@ input, select, button {
 
 .card-arma h4 {
   margin: 0 0 5px 0;
-  font-size: 18px; /* +15% aprox */
+  font-size: 18px;
 }
 
 .card-arma p {
   margin: 4px 0;
-  font-size: 16px; /* +15% desde 14px */
+  font-size: 16px;
   color: #333;
 }
 
@@ -135,7 +118,6 @@ input, select, button {
   background-color: #e6f0ff;
 }
 
-/* Separación entre tarjetas de armas y botón Finalizar */
 #btn-finalizar {
   margin-top: 20px;
 }
