@@ -2,7 +2,7 @@ body {
   font-family: Arial, sans-serif;
   background: #f4f4f4;
   padding: 20px;
-  max-width: 500px;
+  max-width: 600px;
   margin: auto;
 }
 
@@ -75,4 +75,67 @@ input, select, button {
   margin-top: 15px;
   font-style: italic;
   color: #888;
+}
+
+/* NUEVOS ESTILOS PARA LA SELECCIÓN DE ARMAS */
+
+#opciones-armas {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.card-arma {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  background: #ffffff;
+  border: 2px solid #ccc;
+  padding: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  border-radius: 6px;
+
+  width: 100%;
+  min-height: 175px; /* aumentado un 25% (140 * 1.25) */
+  box-sizing: border-box;
+}
+
+.card-arma img {
+  width: 150px;  /* aumentado un 25% (120 * 1.25) */
+  height: 150px; /* aumentado un 25% */
+  object-fit: contain;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.card-arma h4 {
+  margin: 0 0 5px 0;
+  font-size: 18px; /* +15% aprox */
+}
+
+.card-arma p {
+  margin: 4px 0;
+  font-size: 16px; /* +15% desde 14px */
+  color: #333;
+}
+
+.card-arma > div {
+  flex: 1;
+}
+
+.card-arma:hover {
+  transform: scale(1.02);
+  border-color: #888;
+}
+
+.card-arma.seleccionada {
+  border-color: #007bff;
+  background-color: #e6f0ff;
+}
+
+/* Separación entre tarjetas de armas y botón Finalizar */
+#btn-finalizar {
+  margin-top: 20px;
 }

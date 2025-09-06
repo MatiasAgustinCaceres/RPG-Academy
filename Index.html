@@ -9,12 +9,14 @@
 
   <h2>Crear Personaje</h2>
 
+  <!-- Paso 1 -->
   <div id="step1">
     <label for="nombre">¿Cuál es tu nombre?</label>
     <input type="text" id="nombre" required>
     <button id="btn-siguiente">Siguiente</button>
   </div>
 
+  <!-- Paso 2 -->
   <div id="step2" class="hidden">
     <label for="clase">Elige una clase:</label>
     <select id="clase">
@@ -25,12 +27,10 @@
     </select>
   </div>
 
+  <!-- Paso 3 -->
   <div id="step3" class="hidden">
-    <label for="arma">Elige un arma:</label>
-    <select id="arma"></select>
-
-    <div id="descripcion-arma" class="descripcion hidden"></div>
-
+    <label>Elige un arma:</label>
+    <div id="opciones-armas"></div>
     <button id="btn-finalizar">Finalizar</button>
   </div>
 
@@ -53,6 +53,7 @@
     <p id="mensaje-siguiente" class="mensaje hidden">Store Coming Soon</p>
   </div>
 
+  <!-- Script principal cargado al final -->
   <script type="module" src="js/Main.js"></script>
 </body>
 </html>

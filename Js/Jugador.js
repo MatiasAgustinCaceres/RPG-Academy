@@ -1,10 +1,9 @@
-// Jugador.js
 export class Jugador {
-  constructor(nombre, profesion, especialidad, armaPrincipal) {
+  constructor(nombre, profesion, especialidad, armaPrincipal, balanceCreditos = 100) {
     this.nombre = nombre;
     this.profesion = profesion;
     this.especialidad = especialidad;
     this.armaPrincipal = armaPrincipal;
-    this.balanceCreditos = 100; // inicia con 100 créditos
+    this.balanceCreditos = balanceCreditos;
   }
 }
