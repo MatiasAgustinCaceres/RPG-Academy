@@ -1,4 +1,5 @@
 import { Especializacion } from './Especializacion.js';
+import { Jugador } from './Jugador.js';
 
 document.addEventListener('DOMContentLoaded', function () {
   const especializaciones = [
@@ -86,19 +87,26 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    const creditosRestantes = 100 - especializacion.creditosRequeridos;
+    // Crear instancia de Jugador
+    const jugador = new Jugador(nombre, especializacion.profesion, especializacion.nombre, especializacion.arma);
 
-    document.getElementById('cred-nombre').innerText = nombre;
-    document.getElementById('cred-profesion').innerText = especializacion.profesion;
-    document.getElementById('cred-especialidad').innerText = especializacion.nombre;
-    document.getElementById('cred-arma').innerText = especializacion.arma;
-    document.getElementById('cred-creditos').innerText = creditosRestantes;
+    // Restar créditos según la especialización elegida
+    jugador.balanceCreditos -= especializacion.creditosRequeridos;
 
+    // Mostrar la credencial con datos del jugador
+    document.getElementById('cred-nombre').innerText = jugador.nombre;
+    document.getElementById('cred-profesion').innerText = jugador.profesion;
+    document.getElementById('cred-especialidad').innerText = jugador.especialidad;
+    document.getElementById('cred-arma').innerText = jugador.armaPrincipal;
+    document.getElementById('cred-creditos').innerText = jugador.balanceCreditos;
+
+    // Ocultar los pasos
     document.getElementById('step1').classList.add('hidden');
     document.getElementById('step2').classList.add('hidden');
     document.getElementById('step3').classList.add('hidden');
     descripcionDiv.classList.add('hidden');
 
+    // Mostrar la credencial y acciones finales
     credencialDiv.classList.remove('hidden');
     accionesFinalesDiv.classList.remove('hidden');
   });
