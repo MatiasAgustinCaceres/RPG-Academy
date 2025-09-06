@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
     new Especializacion("Monje", "Bastón de monje", "Picaro", "Dominar el Bastón de monje requiere de una impecable agilidad y autocontrol. Tu mente y cuerpo deben ser uno.", 75),
   ];
 
+  // Referencias a elementos del DOM
   const btnSiguiente = document.getElementById('btn-siguiente');
   const btnFinalizar = document.getElementById('btn-finalizar');
   const selectClase = document.getElementById('clase');
@@ -28,6 +29,33 @@ document.addEventListener('DOMContentLoaded', function () {
   const btnReiniciar = document.getElementById('btn-reiniciar');
   const btnIrStore = document.getElementById('btn-ir-store');
 
+  // Función para mostrar la credencial con los datos del jugador
+  function mostrarCredencial(jugador) {
+    document.getElementById('cred-nombre').innerText = jugador.nombre;
+    document.getElementById('cred-profesion').innerText = jugador.profesion;
+    document.getElementById('cred-especialidad').innerText = jugador.especialidad;
+    document.getElementById('cred-arma').innerText = jugador.armaPrincipal;
+    document.getElementById('cred-creditos').innerText = jugador.balanceCreditos;
+
+    // Ocultar los pasos y la descripción
+    document.getElementById('step1').classList.add('hidden');
+    document.getElementById('step2').classList.add('hidden');
+    document.getElementById('step3').classList.add('hidden');
+    descripcionDiv.classList.add('hidden');
+
+    // Mostrar la credencial y acciones finales
+    credencialDiv.classList.remove('hidden');
+    accionesFinalesDiv.classList.remove('hidden');
+  }
+
+  // Intentar cargar jugador guardado al iniciar la aplicación
+  const jugadorGuardadoJSON = localStorage.getItem('jugador');
+  if (jugadorGuardadoJSON) {
+    const jugadorGuardado = JSON.parse(jugadorGuardadoJSON);
+    mostrarCredencial(jugadorGuardado);
+  }
+
+  // Evento para avanzar al paso 2 (elegir clase)
   btnSiguiente.addEventListener('click', () => {
     const nombre = document.getElementById('nombre').value.trim();
     if (nombre === "") {
@@ -38,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('step2').classList.remove('hidden');
   });
 
+  // Evento para cargar armas según clase seleccionada
   selectClase.addEventListener('change', () => {
     const clase = selectClase.value;
     const opciones = especializaciones.filter(e => e.profesion === clase);
@@ -61,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  // Evento para mostrar descripción y créditos del arma seleccionada
   selectArma.addEventListener('change', () => {
     const armaSeleccionada = selectArma.value;
     const especializacion = especializaciones.find(e => e.arma === armaSeleccionada);
@@ -77,6 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  // Evento para finalizar la creación y guardar jugador en localStorage
   btnFinalizar.addEventListener('click', () => {
     const nombre = document.getElementById('nombre').value;
     const arma = selectArma.value;
@@ -87,34 +118,24 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    // Crear instancia de Jugador
     const jugador = new Jugador(nombre, especializacion.profesion, especializacion.nombre, especializacion.arma);
 
-    // Restar créditos según la especialización elegida
+    // Reducir créditos según especialización
     jugador.balanceCreditos -= especializacion.creditosRequeridos;
 
-    // Mostrar la credencial con datos del jugador
-    document.getElementById('cred-nombre').innerText = jugador.nombre;
-    document.getElementById('cred-profesion').innerText = jugador.profesion;
-    document.getElementById('cred-especialidad').innerText = jugador.especialidad;
-    document.getElementById('cred-arma').innerText = jugador.armaPrincipal;
-    document.getElementById('cred-creditos').innerText = jugador.balanceCreditos;
+    // Guardar en localStorage
+    localStorage.setItem('jugador', JSON.stringify(jugador));
 
-    // Ocultar los pasos
-    document.getElementById('step1').classList.add('hidden');
-    document.getElementById('step2').classList.add('hidden');
-    document.getElementById('step3').classList.add('hidden');
-    descripcionDiv.classList.add('hidden');
-
-    // Mostrar la credencial y acciones finales
-    credencialDiv.classList.remove('hidden');
-    accionesFinalesDiv.classList.remove('hidden');
+    mostrarCredencial(jugador);
   });
 
+  // Botón para reiniciar (borrar localStorage y recargar)
   btnReiniciar.addEventListener('click', () => {
+    localStorage.removeItem('jugador');
     location.reload();
   });
 
+  // Botón para mostrar mensaje Store Coming Soon
   btnIrStore.addEventListener('click', () => {
     mensajeSiguiente.classList.remove('hidden');
   });
