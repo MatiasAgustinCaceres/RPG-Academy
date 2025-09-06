@@ -7,7 +7,7 @@ const especializaciones = [
   new Especializacion("Templario", "Maza", "Guerrero", "Al elegir la maza como tu arma seguirás el camino del Templario. Resistentes e incorruptibles guerreros.", 75, "Assets/armas-principales/maza.png"),
 
   new Especializacion("Hechicero", "Libro de magia elemental", "Mago", "El Libro de magia elemental te llevará por el camino de los Hechiceros. Poderosos magos capaces de manipular los elementos y la naturaleza.", 25, "Assets/armas-principales/libro-de-magia-elemental.png"),
-  new Especializacion("Invocador", "Báculo de invocación", "Mago", "El Báculo de invocación te llevará por el camino de los Invocadores. Poderosos magos capaces de invocar criaturas. Ya sean, o no, de este mundo.", 50, "Assets/armas-principales/baculo-de-invocacion.png"),
+  new Especializacion("Invocador", "Báculo de invocación", "Mago", "El Báculo de invocación te llevará por el camino de los Invocadores. Poderosos magos capaces de invocar criaturas. Sean, o no, de este mundo.", 50, "Assets/armas-principales/baculo-de-invocacion.png"),
   new Especializacion("Druida", "Amuleto de Druida", "Mago", "El Amuleto de Druida te llevará por el camino de los Druidas. Poderosos magos capaces de sanar cualquier herida y con el don de la clarividencia.", 75, "Assets/armas-principales/amuleto-de-druida.png"),
 
   new Especializacion("Arquero", "Arco", "Picaro", "Dominar el Arco te permitirá eliminar a tus enemigos antes de que ellos puedan tocarte.", 25, "Assets/armas-principales/arco.png"),
@@ -46,10 +46,16 @@ if (jugadorGuardado) {
 
 btnSiguiente.addEventListener('click', () => {
   const nombre = document.getElementById('nombre').value.trim();
+  const mensajeError = document.getElementById("mensaje-error-nombre"); 
   if (nombre === "") {
-    alert("Por favor, ingresa tu nombre.");
+    mensajeError.textContent = "Por favor, ingresa tu nombre";
+    mensajeError.classList.remove("hidden");
     return;
   }
+
+  mensajeError.textContent = "";
+  mensajeError.classList.add("hidden");
+
   document.getElementById('pedido-nombre').classList.add('hidden');
   document.getElementById('pedido-clase').classList.remove('hidden');
 });
@@ -86,10 +92,16 @@ selectClase.addEventListener('change', () => {
 
 btnFinalizar.addEventListener('click', () => {
   const nombre = document.getElementById('nombre').value.trim();
+  const mensajeError = document.getElementById("mensaje-error-arma"); 
+
   if (!armaSeleccionada) {
-    alert("Selecciona un arma.");
+    mensajeError.textContent = "Por favor, seleccione una de las tres armas antes de presionar el boton finalizar";
+    mensajeError.classList.remove("hidden");
     return;
   }
+
+  mensajeError.textContent = "";
+  mensajeError.classList.add("hidden");
 
   const jugador = new Jugador(
     nombre,

@@ -121,3 +121,9 @@ input, select, button {
 #btn-finalizar {
   margin-top: 20px;
 }
+
+.error {
+  color: red;
+  margin-top: 10px;
+  font-weight: bold;
+}
