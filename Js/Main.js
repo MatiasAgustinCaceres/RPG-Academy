@@ -37,6 +37,14 @@ if (jugadorGuardado) {
   document.getElementById('cred-arma').innerText = j.armaPrincipal;
   document.getElementById('cred-creditos').innerText = j.balanceCreditos;
 
+  // Nuevas estadísticas
+  document.getElementById('cred-salud').innerText = j.salud;
+  document.getElementById('cred-fuerza').innerText = j.fuerza;
+  document.getElementById('cred-inteligencia').innerText = j.inteligencia;
+  document.getElementById('cred-destreza').innerText = j.destreza;
+  document.getElementById('cred-suerte').innerText = j.suerte;
+  document.getElementById('cred-efectos').innerText = j.efectosExtra?.join(', ') || 'Ninguno';
+
   document.getElementById('pedido-nombre').classList.add('hidden');
   document.getElementById('pedido-clase').classList.add('hidden');
   document.getElementById('pedido-arma').classList.add('hidden');
@@ -47,7 +55,7 @@ if (jugadorGuardado) {
 // Pedido de nombre
 btnSiguiente.addEventListener('click', () => {
   const nombre = document.getElementById('nombre').value.trim();
-  const mensajeError = document.getElementById("mensaje-error-nombre"); 
+  const mensajeError = document.getElementById("mensaje-error-nombre");
   if (nombre === "") {
     mensajeError.textContent = "Por favor, ingresa tu nombre";
     mensajeError.classList.remove("hidden");
@@ -92,10 +100,10 @@ selectClase.addEventListener('change', () => {
   document.getElementById('pedido-arma').classList.remove('hidden');
 });
 
-// Selección del arma y presentación de la credencial.
+// Finalizar creación del personaje
 btnFinalizar.addEventListener('click', () => {
   const nombre = document.getElementById('nombre').value.trim();
-  const mensajeError = document.getElementById("mensaje-error-arma"); 
+  const mensajeError = document.getElementById("mensaje-error-arma");
 
   if (!armaSeleccionada) {
     mensajeError.textContent = "Por favor, seleccione una de las tres armas antes de presionar el boton finalizar";
@@ -110,9 +118,10 @@ btnFinalizar.addEventListener('click', () => {
     nombre,
     armaSeleccionada.profesion,
     armaSeleccionada.nombre,
-    armaSeleccionada.arma,
-    100 - armaSeleccionada.creditosRequeridos
+    armaSeleccionada.arma
   );
+
+  jugador.balanceCreditos = 100 - armaSeleccionada.creditosRequeridos;
 
   localStorage.setItem('jugador', JSON.stringify(jugador));
 
@@ -122,6 +131,14 @@ btnFinalizar.addEventListener('click', () => {
   document.getElementById('cred-arma').innerText = jugador.armaPrincipal;
   document.getElementById('cred-creditos').innerText = jugador.balanceCreditos;
 
+  // Nuevas estadísticas
+  document.getElementById('cred-salud').innerText = jugador.salud;
+  document.getElementById('cred-fuerza').innerText = jugador.fuerza;
+  document.getElementById('cred-inteligencia').innerText = jugador.inteligencia;
+  document.getElementById('cred-destreza').innerText = jugador.destreza;
+  document.getElementById('cred-suerte').innerText = jugador.suerte;
+  document.getElementById('cred-efectos').innerText = 'Ninguno';
+
   document.getElementById('pedido-nombre').classList.add('hidden');
   document.getElementById('pedido-clase').classList.add('hidden');
   document.getElementById('pedido-arma').classList.add('hidden');
@@ -129,12 +146,13 @@ btnFinalizar.addEventListener('click', () => {
   accionesFinalesDiv.classList.remove('hidden');
 });
 
-// Botones Reiniciar e Ir al Storege
+// Reiniciar
 btnReiniciar.addEventListener('click', () => {
   localStorage.removeItem('jugador');
   location.reload();
 });
 
+// Ir al Store
 btnIrStore.addEventListener('click', () => {
   mensajeSiguiente.classList.remove('hidden');
 });
