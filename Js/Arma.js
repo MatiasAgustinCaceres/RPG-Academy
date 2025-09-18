@@ -1,5 +1,15 @@
 export class Arma {
-  constructor(nombre, modificadorSalud, modificadorFuerza, modificadorInteligencia, modificadorDestreza, modificadorSuerte, efectosEspeciales = [], valor, imagen) {
+  constructor(
+    nombre,
+    modificadorSalud,
+    modificadorFuerza,
+    modificadorInteligencia,
+    modificadorDestreza,
+    modificadorSuerte,
+    efectosEspeciales = [],
+    valor = 0,
+    imagen = ""
+  ) {
     this.nombre = nombre;
     this.modificadorSalud = modificadorSalud;
     this.modificadorFuerza = modificadorFuerza;

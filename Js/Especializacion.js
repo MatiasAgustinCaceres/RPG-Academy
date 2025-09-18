@@ -1,10 +1,9 @@
 export class Especializacion {
-  constructor(nombre, arma, profesion, descripcion, creditosRequeridos, imagen) {
-    this.nombre = nombre; 
-    this.arma = arma; 
-    this.profesion = profesion; 
+  constructor(nombre, profesion, descripcion, arma) {
+    this.nombre = nombre;
+    this.profesion = profesion;
     this.descripcion = descripcion;
-    this.creditosRequeridos = creditosRequeridos;
-    this.imagen = imagen; 
+    this.arma = arma; // Instancia de la clase Arma
   }
 }
+
