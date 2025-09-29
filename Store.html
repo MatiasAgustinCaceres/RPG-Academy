@@ -1,37 +1,31 @@
-<!-- Store.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Tienda RPG Academy</title>
-  <link rel="stylesheet" href="Css/StoreStyle.css" />
+  <meta charset="UTF-8">
+  <title>RPG Academy Store</title>
+  <link rel="stylesheet" href="Css/StoreStyle.css">
 </head>
 <body>
 
   <header>
-    <h1>Tienda RPG Academy</h1>
-    <button id="btn-volver">Volver al inicio</button>
+    <h1>RPG Academy - Store</h1>
+    <button id="btn-volver">Volver</button>
   </header>
 
-  <section id="info-jugador">
-    <h2>Bienvenido, <span id="jugador-nombre"></span></h2>
-    <p><strong>Créditos disponibles:</strong> <span id="jugador-creditos"></span></p>
-  </section>
+  <main>
+    <section id="productos" class="grid-productos">
+      <!-- Las armas se cargarán aquí dinámicamente -->
+    </section>
+  </main>
 
-  <section id="store-contenedor" class="store-grid">
-    <!-- Armas se renderizan aquí -->
-  </section>
-
-  <template id="template-arma">
-    <div class="card-arma-store">
-      <img src="" alt="Imagen arma" class="arma-img" />
-      <h3 class="arma-nombre"></h3>
-      <p class="arma-valor"></p>
-      <p class="arma-stats"></p>
-      <p class="arma-efectos"></p>
-      <button class="btn-comprar">Comprar</button>
-    </div>
-  </template>
+  <!-- Carrito de compras -->
+  <aside id="carrito-compras" class="expandido">
+    <button id="toggle-carrito">➖</button>
+    <h2>Carrito</h2>
+    <ul id="carrito-lista"></ul>
+    <p><strong>Total:</strong> <span id="carrito-total">0</span> créditos</p>
+    <button id="btn-finalizar-compra">Finalizar compra</button>
+  </aside>
 
   <script type="module" src="Js/StoreMain.js"></script>
 </body>
