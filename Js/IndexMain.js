@@ -7,7 +7,6 @@ const selectClase = document.getElementById('clase');
 const opcionesArmasDiv = document.getElementById('opciones-armas');
 const credencialDiv = document.getElementById('credencial');
 const accionesFinalesDiv = document.getElementById('acciones-finales');
-const mensajeSiguiente = document.getElementById('mensaje-siguiente');
 const btnReiniciar = document.getElementById('btn-reiniciar');
 const btnIrStore = document.getElementById('btn-ir-store');
 
@@ -22,14 +21,15 @@ if (jugadorGuardado) {
 
 btnSiguiente.addEventListener('click', () => {
   const nombre = document.getElementById('nombre').value.trim();
-  const mensajeError = document.getElementById("mensaje-error-nombre");
   if (nombre === "") {
-    mensajeError.textContent = "Por favor, ingresa tu nombre";
-    mensajeError.classList.remove("hidden");
+    Swal.fire({
+      icon: 'warning',
+      title: 'Atención',
+      text: 'Por favor, ingresa tu nombre.'
+    });
     return;
   }
 
-  mensajeError.classList.add("hidden");
   document.getElementById('pedido-nombre').classList.add('hidden');
   document.getElementById('pedido-clase').classList.remove('hidden');
 });
@@ -79,17 +79,16 @@ selectClase.addEventListener('change', () => {
 });
 
 btnFinalizar.addEventListener('click', () => {
-  const nombre = document.getElementById('nombre').value.trim();
-  const mensajeError = document.getElementById("mensaje-error-arma");
-
   if (!armaSeleccionada) {
-    mensajeError.textContent = "Por favor, selecciona un arma.";
-    mensajeError.classList.remove("hidden");
+    Swal.fire({
+      icon: 'warning',
+      title: 'Atención',
+      text: 'Por favor, selecciona un arma.'
+    });
     return;
   }
 
-  mensajeError.classList.add("hidden");
-
+  const nombre = document.getElementById('nombre').value.trim();
   const jugador = new Jugador(
     nombre,
     armaSeleccionada.profesion,
@@ -103,15 +102,20 @@ btnFinalizar.addEventListener('click', () => {
   jugador.inteligencia += arma.modificadorInteligencia;
   jugador.destreza += arma.modificadorDestreza;
   jugador.suerte += arma.modificadorSuerte;
-  jugador.efectosExtra = arma.efectosEspeciales.slice();  // copia
+  jugador.efectosExtra = arma.efectosEspeciales.slice();
   jugador.balanceCreditos -= arma.valor;
 
-  // Inicializar listas vacías para compras futuras
   jugador.armasCompradas = [arma.nombre];
   jugador.efectosEspeciales = (arma.efectosEspeciales || []).map(e => `${e} (de ${arma.nombre})`);
 
   localStorage.setItem('jugador', JSON.stringify(jugador));
-  mostrarCredencial(jugador);
+
+  Swal.fire({
+    icon: 'success',
+    title: 'Jugador creado',
+    text: `¡Bienvenido ${jugador.nombre}!`,
+    confirmButtonText: 'Aceptar'
+  }).then(() => mostrarCredencial(jugador));
 });
 
 btnReiniciar.addEventListener('click', () => {
@@ -119,7 +123,6 @@ btnReiniciar.addEventListener('click', () => {
   localStorage.removeItem('stockArmas'); // reinicia stock
   location.reload();
 });
-
 
 btnIrStore.addEventListener('click', () => {
   window.location.href = 'Store.html';
@@ -154,7 +157,6 @@ function mostrarCredencial(j) {
     ulEfectos.appendChild(li);
   });
 
-  // Mostrar la credencial y acciones finales
   document.getElementById('pedido-nombre').classList.add('hidden');
   document.getElementById('pedido-clase').classList.add('hidden');
   document.getElementById('pedido-arma').classList.add('hidden');

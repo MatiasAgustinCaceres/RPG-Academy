@@ -54,7 +54,11 @@ productosContainer.addEventListener('click', (e) => {
     const arma = armasStore[index];
 
     if (arma.stock <= 0) {
-      alert('Esta arma está agotada.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Agotado',
+        text: 'Esta arma está agotada.'
+      });
       return;
     }
 
@@ -62,7 +66,6 @@ productosContainer.addEventListener('click', (e) => {
     total += arma.valor;
     arma.stock--;
 
-    // Guardar stock actualizado
     let stockActualizado = {};
     armasStore.forEach(a => stockActualizado[a.nombre] = a.stock);
     localStorage.setItem('stockArmas', JSON.stringify(stockActualizado));
@@ -83,7 +86,6 @@ carritoLista.addEventListener('click', (e) => {
     total -= arma.valor;
     carrito.splice(carritoIndex, 1);
 
-    // Guardar stock actualizado
     let stockActualizado = {};
     armasStore.forEach(a => stockActualizado[a.nombre] = a.stock);
     localStorage.setItem('stockArmas', JSON.stringify(stockActualizado));
@@ -106,14 +108,22 @@ function actualizarCarrito() {
 btnFinalizarCompra.addEventListener('click', () => {
   const jugadorGuardado = localStorage.getItem('jugador');
   if (!jugadorGuardado) {
-    alert("No hay un jugador creado.");
+    Swal.fire({
+      icon: 'warning',
+      title: 'Atención',
+      text: 'No hay un jugador creado.'
+    });
     return;
   }
 
   const jugador = JSON.parse(jugadorGuardado);
 
   if (total > jugador.balanceCreditos) {
-    alert("No tienes suficientes créditos.");
+    Swal.fire({
+      icon: 'error',
+      title: 'Créditos insuficientes',
+      text: 'No tienes suficientes créditos.'
+    });
     return;
   }
 
@@ -124,7 +134,6 @@ btnFinalizarCompra.addEventListener('click', () => {
 
   carrito.forEach(item => {
     const arma = item.arma;
-
     if (arma.modificadorSalud) jugador.salud += arma.modificadorSalud;
     if (arma.modificadorFuerza) jugador.fuerza += arma.modificadorFuerza;
     if (arma.modificadorInteligencia) jugador.inteligencia += arma.modificadorInteligencia;
@@ -146,7 +155,11 @@ btnFinalizarCompra.addEventListener('click', () => {
   carrito = [];
   total = 0;
 
-  window.location.href = 'index.html';
+  Swal.fire({
+    icon: 'success',
+    title: 'Compra realizada',
+    text: 'Tus armas se han agregado correctamente.'
+  }).then(() => window.location.href = 'index.html');
 });
 
 btnVolver.addEventListener('click', () => {
@@ -158,9 +171,7 @@ toggleCarritoBtn.addEventListener('click', () => {
   toggleCarritoBtn.innerText = colapsado ? '➕' : '➖';
 });
 
-// **Inicializar vistas SOLO después de cargar los datos del JSON**
 datosListos.then(() => {
-  // Cargar stock guardado o inicializarlo
   let stockGuardado = JSON.parse(localStorage.getItem('stockArmas')) || {};
   armasStore.forEach((arma) => {
     if (stockGuardado[arma.nombre] !== undefined) {
@@ -168,7 +179,6 @@ datosListos.then(() => {
     }
   });
 
-  // Inicializar vistas
   cargarArmas();
   actualizarCarrito();
 });
