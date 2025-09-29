@@ -11,7 +11,6 @@ const carritoContenedor = document.getElementById('carrito-compras');
 let carrito = [];
 let total = 0;
 
-// Cargar armas en el DOM
 function cargarArmas() {
   productosContainer.innerHTML = '';
 
@@ -47,7 +46,6 @@ function cargarArmas() {
   });
 }
 
-// Manejo de agregar al carrito
 productosContainer.addEventListener('click', (e) => {
   if (e.target.tagName === 'BUTTON' && !e.target.disabled) {
     const index = parseInt(e.target.getAttribute('data-index'));
@@ -58,41 +56,31 @@ productosContainer.addEventListener('click', (e) => {
       return;
     }
 
-    // Agregar al carrito
     carrito.push({ arma: arma, index: index });
     total += arma.valor;
     arma.stock--;
 
     actualizarCarrito();
-    cargarArmas(); // Recargar las tarjetas con stock actualizado
+    cargarArmas();
   }
 });
 
-// Quitar un item del carrito
 carritoLista.addEventListener('click', (e) => {
-  // Si haces click en un item del carrito, lo quitamos
   if (e.target && e.target.dataset && e.target.dataset.carritoIndex !== undefined) {
     const carritoIndex = parseInt(e.target.dataset.carritoIndex);
     const item = carrito[carritoIndex];
     const arma = item.arma;
     const indexEnStore = item.index;
 
-    // Restaurar stock
     armasStore[indexEnStore].stock++;
-
-    // Restar del total
     total -= arma.valor;
-
-    // Quitar del arreglo carrito
     carrito.splice(carritoIndex, 1);
 
-    // Actualizar vista
     actualizarCarrito();
     cargarArmas();
   }
 });
 
-// Actualizar el contenido del carrito en el DOM
 function actualizarCarrito() {
   carritoLista.innerHTML = '';
   carrito.forEach((item, idx) => {
@@ -103,7 +91,6 @@ function actualizarCarrito() {
   carritoTotal.textContent = total;
 }
 
-// Finalizar compra
 btnFinalizarCompra.addEventListener('click', () => {
   const jugadorGuardado = localStorage.getItem('jugador');
   if (!jugadorGuardado) {
@@ -119,23 +106,49 @@ btnFinalizarCompra.addEventListener('click', () => {
   }
 
   jugador.balanceCreditos -= total;
-  alert(`Compra realizada con éxito. Te quedan ${jugador.balanceCreditos} créditos.`);
+
+  // Aplicar efectos y atributos de armas compradas
+  const efectosConOrigen = [];
+  const nombresArmasCompradas = [];
+
+  carrito.forEach(item => {
+    const arma = item.arma;
+
+    if (arma.modificadorSalud) jugador.salud += arma.modificadorSalud;
+    if (arma.modificadorFuerza) jugador.fuerza += arma.modificadorFuerza;
+    if (arma.modificadorInteligencia) jugador.inteligencia += arma.modificadorInteligencia;
+    if (arma.modificadorDestreza) jugador.destreza += arma.modificadorDestreza;
+    if (arma.modificadorSuerte) jugador.suerte += arma.modificadorSuerte;
+
+    arma.efectosEspeciales.forEach(e => {
+      efectosConOrigen.push(`${e} (de ${arma.nombre})`);
+    });
+
+    nombresArmasCompradas.push(arma.nombre);
+  });
+
+  jugador.efectosEspeciales = (jugador.efectosEspeciales || []).concat(efectosConOrigen);
+  jugador.armasCompradas = (jugador.armasCompradas || []).concat(nombresArmasCompradas);
 
   localStorage.setItem('jugador', JSON.stringify(jugador));
-  location.reload();
+
+  // Limpiar carrito
+  carrito = [];
+  total = 0;
+
+  // Volver al index para mostrar credencial ahí
+  window.location.href = 'index.html';
 });
 
-// Botón volver
 btnVolver.addEventListener('click', () => {
   window.location.href = "index.html";
 });
 
-// Colapsar / expandir carrito
 toggleCarritoBtn.addEventListener('click', () => {
   const colapsado = carritoContenedor.classList.toggle('colapsado');
   toggleCarritoBtn.innerText = colapsado ? '➕' : '➖';
 });
 
-// Inicializar
+// Inicializar vistas
 cargarArmas();
 actualizarCarrito();
