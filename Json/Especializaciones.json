@@ -1,0 +1,157 @@
+{
+  "especializaciones": [
+    {
+      "nombre": "Caballero",
+      "profesion": "Guerrero",
+      "descripcion": "Al elegir la espada como tu arma seguirás el camino del Caballero. Disciplinados y valerosos guerreros.",
+      "arma": {
+        "nombre": "Espada",
+        "modificadorSalud": 10,
+        "modificadorFuerza": 15,
+        "modificadorInteligencia": 0,
+        "modificadorDestreza": 0,
+        "modificadorSuerte": 0,
+        "efectosEspeciales": [],
+        "valor": 0,
+        "stock": 1,
+        "imagen": "Assets/armas-principales/espada.png"
+      }
+    },
+    {
+      "nombre": "Bárbaro",
+      "profesion": "Guerrero",
+      "descripcion": "Al elegir la hacha como tu arma seguirás el camino del Bárbaro. Salvajes y feroces guerreros.",
+      "arma": {
+        "nombre": "Hacha",
+        "modificadorSalud": 5,
+        "modificadorFuerza": 20,
+        "modificadorInteligencia": 0,
+        "modificadorDestreza": 0,
+        "modificadorSuerte": 0,
+        "efectosEspeciales": [],
+        "valor": 0,
+        "stock": 1,
+        "imagen": "Assets/armas-principales/hacha.png"
+      }
+    },
+    {
+      "nombre": "Templario",
+      "profesion": "Guerrero",
+      "descripcion": "Al elegir la maza como tu arma seguirás el camino del Templario. Resistentes e incorruptibles guerreros.",
+      "arma": {
+        "nombre": "Maza",
+        "modificadorSalud": 15,
+        "modificadorFuerza": 5,
+        "modificadorInteligencia": 0,
+        "modificadorDestreza": 0,
+        "modificadorSuerte": 5,
+        "efectosEspeciales": [],
+        "valor": 0,
+        "stock": 1,
+        "imagen": "Assets/armas-principales/maza.png"
+      }
+    },
+    {
+      "nombre": "Hechicero",
+      "profesion": "Mago",
+      "descripcion": "El Libro de magia elemental te llevará por el camino de los Hechiceros. Poderosos magos capaces de manipular los elementos y la naturaleza.",
+      "arma": {
+        "nombre": "Libro de magia elemental",
+        "modificadorSalud": 10,
+        "modificadorFuerza": 0,
+        "modificadorInteligencia": 15,
+        "modificadorDestreza": 0,
+        "modificadorSuerte": 0,
+        "efectosEspeciales": [],
+        "valor": 0,
+        "stock": 1,
+        "imagen": "Assets/armas-principales/libro-de-magia-elemental.png"
+      }
+    },
+    {
+      "nombre": "Invocador",
+      "profesion": "Mago",
+      "descripcion": "El Báculo de invocación te llevará por el camino de los Invocadores. Poderosos magos capaces de invocar criaturas. Sean, o no, de este mundo.",
+      "arma": {
+        "nombre": "Báculo de invocación",
+        "modificadorSalud": 5,
+        "modificadorFuerza": 0,
+        "modificadorInteligencia": 20,
+        "modificadorDestreza": 0,
+        "modificadorSuerte": 0,
+        "efectosEspeciales": [],
+        "valor": 0,
+        "stock": 1,
+        "imagen": "Assets/armas-principales/baculo-de-invocacion.png"
+      }
+    },
+    {
+      "nombre": "Druida",
+      "profesion": "Mago",
+      "descripcion": "El Amuleto de Druida te llevará por el camino de los Druidas. Poderosos magos capaces de sanar cualquier herida y con el don de la clarividencia.",
+      "arma": {
+        "nombre": "Amuleto de Druida",
+        "modificadorSalud": 15,
+        "modificadorFuerza": 0,
+        "modificadorInteligencia": 5,
+        "modificadorDestreza": 0,
+        "modificadorSuerte": 5,
+        "efectosEspeciales": [],
+        "valor": 0,
+        "stock": 1,
+        "imagen": "Assets/armas-principales/amuleto-de-druida.png"
+      }
+    },
+    {
+      "nombre": "Arquero",
+      "profesion": "Picaro",
+      "descripcion": "Dominar el Arco te permitirá eliminar a tus enemigos antes de que ellos puedan tocarte.",
+      "arma": {
+        "nombre": "Arco",
+        "modificadorSalud": 5,
+        "modificadorFuerza": 0,
+        "modificadorInteligencia": 0,
+        "modificadorDestreza": 20,
+        "modificadorSuerte": 0,
+        "efectosEspeciales": [],
+        "valor": 0,
+        "stock": 1,
+        "imagen": "Assets/armas-principales/arco.png"
+      }
+    },
+    {
+      "nombre": "Asesino",
+      "profesion": "Picaro",
+      "descripcion": "Dominar las Dagas te permitirá eliminar a tus enemigos antes de que estos noten tu presencia. Las sombras serán tus mejores aliadas.",
+      "arma": {
+        "nombre": "Dagas",
+        "modificadorSalud": 10,
+        "modificadorFuerza": 0,
+        "modificadorInteligencia": 0,
+        "modificadorDestreza": 15,
+        "modificadorSuerte": 0,
+        "efectosEspeciales": [],
+        "valor": 0,
+        "stock": 1,
+        "imagen": "Assets/armas-principales/dagas.png"
+      }
+    },
+    {
+      "nombre": "Monje",
+      "profesion": "Picaro",
+      "descripcion": "Dominar el Bastón de monje requiere de una impecable agilidad y autocontrol. Tu mente y cuerpo deben ser uno.",
+      "arma": {
+        "nombre": "Bastón de monje",
+        "modificadorSalud": 10,
+        "modificadorFuerza": 0,
+        "modificadorInteligencia": 0,
+        "modificadorDestreza": 10,
+        "modificadorSuerte": 5,
+        "efectosEspeciales": [],
+        "valor": 0,
+        "stock": 1,
+        "imagen": "Assets/armas-principales/baston-de-monje.png"
+      }
+    }
+  ]
+}

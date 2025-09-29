@@ -1,4 +1,4 @@
-import { armasStore } from './BaseDeDatos.js';
+import { armasStore, datosListos } from './BaseDeDatos.js';
 
 const productosContainer = document.getElementById('productos');
 const carritoLista = document.getElementById('carrito-lista');
@@ -10,14 +10,6 @@ const carritoContenedor = document.getElementById('carrito-compras');
 
 let carrito = [];
 let total = 0;
-
-// Cargar stock guardado o inicializarlo
-let stockGuardado = JSON.parse(localStorage.getItem('stockArmas')) || {};
-armasStore.forEach((arma) => {
-  if (stockGuardado[arma.nombre] !== undefined) {
-    arma.stock = stockGuardado[arma.nombre];
-  }
-});
 
 function cargarArmas() {
   productosContainer.innerHTML = '';
@@ -166,6 +158,17 @@ toggleCarritoBtn.addEventListener('click', () => {
   toggleCarritoBtn.innerText = colapsado ? '➕' : '➖';
 });
 
-// Inicializar vistas
-cargarArmas();
-actualizarCarrito();
+// **Inicializar vistas SOLO después de cargar los datos del JSON**
+datosListos.then(() => {
+  // Cargar stock guardado o inicializarlo
+  let stockGuardado = JSON.parse(localStorage.getItem('stockArmas')) || {};
+  armasStore.forEach((arma) => {
+    if (stockGuardado[arma.nombre] !== undefined) {
+      arma.stock = stockGuardado[arma.nombre];
+    }
+  });
+
+  // Inicializar vistas
+  cargarArmas();
+  actualizarCarrito();
+});

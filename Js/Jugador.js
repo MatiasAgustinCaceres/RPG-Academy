@@ -5,7 +5,7 @@ export class Jugador {
     this.especialidad = especialidad;
     this.armaPrincipal = armaPrincipal;
 
-    this.balanceCreditos = 100;
+    this.balanceCreditos = 1000;
 
     this.salud = 0;
     this.fuerza = 0;
