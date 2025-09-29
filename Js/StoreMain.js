@@ -11,6 +11,14 @@ const carritoContenedor = document.getElementById('carrito-compras');
 let carrito = [];
 let total = 0;
 
+// Cargar stock guardado o inicializarlo
+let stockGuardado = JSON.parse(localStorage.getItem('stockArmas')) || {};
+armasStore.forEach((arma) => {
+  if (stockGuardado[arma.nombre] !== undefined) {
+    arma.stock = stockGuardado[arma.nombre];
+  }
+});
+
 function cargarArmas() {
   productosContainer.innerHTML = '';
 
@@ -18,12 +26,10 @@ function cargarArmas() {
     const card = document.createElement('div');
     card.classList.add('card-arma');
 
-    // Creamos efectos
     const efectos = arma.efectosEspeciales.length > 0
       ? `<p><strong>Efectos:</strong> ${arma.efectosEspeciales.join(', ')}</p>`
       : '';
 
-    // Creamos stats
     const stats = [];
     if (arma.modificadorSalud) stats.push(`Salud +${arma.modificadorSalud}`);
     if (arma.modificadorFuerza) stats.push(`Fuerza +${arma.modificadorFuerza}`);
@@ -64,6 +70,11 @@ productosContainer.addEventListener('click', (e) => {
     total += arma.valor;
     arma.stock--;
 
+    // Guardar stock actualizado
+    let stockActualizado = {};
+    armasStore.forEach(a => stockActualizado[a.nombre] = a.stock);
+    localStorage.setItem('stockArmas', JSON.stringify(stockActualizado));
+
     actualizarCarrito();
     cargarArmas();
   }
@@ -79,6 +90,11 @@ carritoLista.addEventListener('click', (e) => {
     armasStore[indexEnStore].stock++;
     total -= arma.valor;
     carrito.splice(carritoIndex, 1);
+
+    // Guardar stock actualizado
+    let stockActualizado = {};
+    armasStore.forEach(a => stockActualizado[a.nombre] = a.stock);
+    localStorage.setItem('stockArmas', JSON.stringify(stockActualizado));
 
     actualizarCarrito();
     cargarArmas();
@@ -111,7 +127,6 @@ btnFinalizarCompra.addEventListener('click', () => {
 
   jugador.balanceCreditos -= total;
 
-  // Aplicar efectos y atributos de armas compradas
   const efectosConOrigen = [];
   const nombresArmasCompradas = [];
 
@@ -136,11 +151,9 @@ btnFinalizarCompra.addEventListener('click', () => {
 
   localStorage.setItem('jugador', JSON.stringify(jugador));
 
-  // Limpiar carrito
   carrito = [];
   total = 0;
 
-  // Volver al index para mostrar credencial
   window.location.href = 'index.html';
 });
 

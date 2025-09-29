@@ -116,8 +116,10 @@ btnFinalizar.addEventListener('click', () => {
 
 btnReiniciar.addEventListener('click', () => {
   localStorage.removeItem('jugador');
+  localStorage.removeItem('stockArmas'); // reinicia stock
   location.reload();
 });
+
 
 btnIrStore.addEventListener('click', () => {
   window.location.href = 'Store.html';
