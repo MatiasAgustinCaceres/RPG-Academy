@@ -18,10 +18,12 @@ function cargarArmas() {
     const card = document.createElement('div');
     card.classList.add('card-arma');
 
+    // Creamos efectos
     const efectos = arma.efectosEspeciales.length > 0
       ? `<p><strong>Efectos:</strong> ${arma.efectosEspeciales.join(', ')}</p>`
       : '';
 
+    // Creamos stats
     const stats = [];
     if (arma.modificadorSalud) stats.push(`Salud +${arma.modificadorSalud}`);
     if (arma.modificadorFuerza) stats.push(`Fuerza +${arma.modificadorFuerza}`);
@@ -34,11 +36,13 @@ function cargarArmas() {
 
     card.innerHTML = `
       <img src="${arma.imagen}" alt="${arma.nombre}">
-      <h3>${arma.nombre}</h3>
-      <p><strong>Valor:</strong> ${arma.valor} créditos</p>
-      <p><strong>Stock:</strong> ${arma.stock}</p>
-      ${stats.length ? `<p><strong>Stats:</strong> ${stats.join(', ')}</p>` : ''}
-      ${efectos}
+      <div>
+        <h3>${arma.nombre}</h3>
+        <p><strong>Valor:</strong> ${arma.valor} créditos</p>
+        <p><strong>Stock:</strong> ${arma.stock}</p>
+        ${stats.length ? `<p><strong>Stats:</strong> ${stats.join(', ')}</p>` : ''}
+        ${efectos}
+      </div>
       <button data-index="${index}" ${botonEstado}>${botonTexto}</button>
     `;
 
@@ -136,7 +140,7 @@ btnFinalizarCompra.addEventListener('click', () => {
   carrito = [];
   total = 0;
 
-  // Volver al index para mostrar credencial ahí
+  // Volver al index para mostrar credencial
   window.location.href = 'index.html';
 });
 

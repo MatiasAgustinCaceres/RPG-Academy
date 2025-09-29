@@ -1,89 +1,98 @@
 body {
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-background-color: #121222;
-color: #fff;
-margin: 0;
-padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #121222;
+  color: #fff;
+  margin: 0;
+  padding: 0;
 }
 
 header {
-background-color: #1f1f3a;
-color: #ffe600;
-padding: 20px;
-text-align: center;
-position: relative;
+  background-color: #1f1f3a;
+  color: #ffe600;
+  padding: 20px;
+  text-align: center;
+  position: relative;
 }
 
 header button {
-position: absolute;
-left: 20px;
-top: 20px;
-background-color: #ffe600;
-border: none;
-padding: 10px;
-font-weight: bold;
-border-radius: 5px;
-cursor: pointer;
-color: #000;
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  background-color: #ffe600;
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #000;
 }
 
 main {
-padding: 20px;
+  padding: 20px;
 }
 
 .grid-productos {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-gap: 20px;
-justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  justify-content: center;
 }
 
+/* Tarjeta de arma */
 .card-arma {
-background-color: #1e1e2f;
-border: 2px solid #444;
-border-radius: 8px;
-padding: 15px;
-transition: all 0.3s ease;
-height: 380px;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
+  background-color: #1e1e2f;
+  border: 2px solid #444;
+  border-radius: 8px;
+  padding: 15px;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* evita espacios vacíos */
+  overflow: hidden;            /* evita desbordes */
+  word-wrap: break-word;
+  text-overflow: ellipsis;
 }
 
 .card-arma img {
-max-height: 160px;
-object-fit: contain;
-border-radius: 4px;
-margin-bottom: 10px;
-width: 100%;
+  max-height: 160px;
+  object-fit: contain;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.card-arma div {
+  overflow: auto; /* permite scroll interno si el texto es muy largo */
+  flex-grow: 1;
 }
 
 .card-arma h3 {
-margin: 5px 0;
-color: #ffe600;
-font-size: 18px;
+  margin: 5px 0;
+  color: #ffe600;
+  font-size: 18px;
 }
 
 .card-arma p {
-margin: 4px 0;
-font-size: 14px;
+  margin: 4px 0;
+  font-size: 14px;
 }
 
 .card-arma button {
-margin-top: 10px;
-background-color: #ffe600;
-color: #1e1e2f;
-border: none;
-padding: 8px 12px;
-border-radius: 5px;
-font-weight: bold;
-cursor: pointer;
+  margin-top: 10px;
+  background-color: #ffe600;
+  color: #1e1e2f;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .card-arma button:disabled {
-background-color: #777;
-color: #ccc;
-cursor: not-allowed;
+  background-color: #777;
+  color: #ccc;
+  cursor: not-allowed;
 }
 
 /* Contenedor carrito */
@@ -99,18 +108,18 @@ cursor: not-allowed;
   box-sizing: border-box;
   overflow-y: auto;
   transition: transform 0.3s ease;
-  transform: translateX(0); /* expandido */
+  transform: translateX(0);
   z-index: 1000;
 }
 
 #carrito-compras.colapsado {
-  transform: translateX(100%); /* colapsado - fuera de pantalla */
+  transform: translateX(100%);
 }
 
 /* Botón toggle separado */
 #toggle-carrito {
   position: fixed;
-  right: 300px; /* justo a la izquierda del carrito */
+  right: 300px;
   top: 10px;
   background-color: #ffe600;
   border: none;
@@ -123,45 +132,44 @@ cursor: not-allowed;
   z-index: 1100;
 }
 
-
 #carrito-compras h2 {
-margin-top: 0;
-color: #ffe600;
+  margin-top: 0;
+  color: #ffe600;
 }
 
 #carrito-compras ul {
-list-style: none;
-padding-left: 0;
+  list-style: none;
+  padding-left: 0;
 }
 
 #carrito-compras li {
-margin-bottom: 10px;
-padding: 5px;
-background-color: #1e1e2f;
-border-radius: 5px;
-display: flex;
-justify-content: space-between;
-align-items: center;
+  margin-bottom: 10px;
+  padding: 5px;
+  background-color: #1e1e2f;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .btn-quitar {
-background-color: #ff4c4c;
-color: white;
-border: none;
-border-radius: 5px;
-padding: 4px 8px;
-font-size: 12px;
-cursor: pointer;
+  background-color: #ff4c4c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
 }
 
 #btn-finalizar-compra {
-margin-top: 15px;
-width: 100%;
-background-color: #ffe600;
-color: #1e1e2f;
-border: none;
-font-weight: bold;
-padding: 10px;
-border-radius: 5px;
-cursor: pointer;
+  margin-top: 15px;
+  width: 100%;
+  background-color: #ffe600;
+  color: #1e1e2f;
+  border: none;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
 }
