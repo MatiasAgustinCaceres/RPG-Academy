@@ -41,41 +41,41 @@ selectClase.addEventListener('change', () => {
   armaSeleccionada = null;
 
   opciones.forEach(op => {
-  const arma = op.arma;
-
-  // Construir solo los stats distintos de 0
-  const stats = [];
-  if (arma.modificadorSalud !== 0) stats.push(`Salud +${arma.modificadorSalud}`);
-  if (arma.modificadorFuerza !== 0) stats.push(`Fuerza +${arma.modificadorFuerza}`);
-  if (arma.modificadorInteligencia !== 0) stats.push(`Inteligencia +${arma.modificadorInteligencia}`);
-  if (arma.modificadorDestreza !== 0) stats.push(`Destreza +${arma.modificadorDestreza}`);
-  if (arma.modificadorSuerte !== 0) stats.push(`Suerte +${arma.modificadorSuerte}`);
-
-  const efectos = arma.efectosEspeciales && arma.efectosEspeciales.length > 0
-    ? `<p><strong>Efectos:</strong> ${arma.efectosEspeciales.join(', ')}</p>`
-    : '';
-
-  const card = document.createElement('div');
-  card.classList.add('card-arma');
-  card.innerHTML = `
-    <img src="${arma.imagen}" alt="${arma.nombre}">
-    <div>
-      <h4>${arma.nombre}</h4>
-      <p>${op.descripcion}</p>
-      <p><strong>Créditos requeridos:</strong> ${arma.valor}</p>
-      ${stats.length > 0 ? `<p><strong>Stats:</strong> ${stats.join(', ')}</p>` : ''}
-      ${efectos}
-    </div>
-  `;
-
-  card.addEventListener('click', () => {
-    document.querySelectorAll('.card-arma').forEach(c => c.classList.remove('seleccionada'));
-    card.classList.add('seleccionada');
-    armaSeleccionada = op;
+    const arma = op.arma;
+    
+    // Construir solo los stats distintos de 0
+    const stats = [];
+    if (arma.modificadorSalud !== 0) stats.push(`Salud +${arma.modificadorSalud}`);
+    if (arma.modificadorFuerza !== 0) stats.push(`Fuerza +${arma.modificadorFuerza}`);
+    if (arma.modificadorInteligencia !== 0) stats.push(`Inteligencia +${arma.modificadorInteligencia}`);
+    if (arma.modificadorDestreza !== 0) stats.push(`Destreza +${arma.modificadorDestreza}`);
+    if (arma.modificadorSuerte !== 0) stats.push(`Suerte +${arma.modificadorSuerte}`);
+    
+    const efectos = arma.efectosEspeciales && arma.efectosEspeciales.length > 0
+      ? `<p><strong>Efectos:</strong> ${arma.efectosEspeciales.join(', ')}</p>`
+      : '';
+   
+    const card = document.createElement('div');
+    card.classList.add('card-arma');
+    card.innerHTML = `
+      <img src="${arma.imagen}" alt="${arma.nombre}">
+      <div>
+        <h4>${arma.nombre}</h4>
+        <p>${op.descripcion}</p>
+        <p><strong>Créditos requeridos:</strong> ${arma.valor}</p>
+        ${stats.length > 0 ? `<p><strong>Stats:</strong> ${stats.join(', ')}</p>` : ''}
+        ${efectos}
+      </div>
+    `;
+   
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.card-arma').forEach(c => c.classList.remove('seleccionada'));
+      card.classList.add('seleccionada');
+      armaSeleccionada = op;
+    });
+   
+    opcionesArmasDiv.appendChild(card);
   });
-
-  opcionesArmasDiv.appendChild(card);
-});
 
   document.getElementById('pedido-arma').classList.remove('hidden');
 });

@@ -8,6 +8,7 @@ export class Arma {
     modificadorSuerte,
     efectosEspeciales = [],
     valor = 0,
+    stock = 1,
     imagen = ""
   ) {
     this.nombre = nombre;
@@ -18,6 +19,7 @@ export class Arma {
     this.modificadorSuerte = modificadorSuerte;
     this.efectosEspeciales = efectosEspeciales;
     this.valor = valor;
+    this.stock = stock;
     this.imagen = imagen;
   }
 }
