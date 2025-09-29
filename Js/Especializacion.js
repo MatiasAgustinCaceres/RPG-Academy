@@ -6,4 +6,3 @@ export class Especializacion {
     this.arma = arma; // Instancia de la clase Arma
   }
 }
-
