@@ -11,7 +11,7 @@ const carritoContenedor = document.getElementById('carrito-compras');
 let carrito = [];
 let total = 0;
 
-// Cargar armas
+// Cargar armas en el DOM
 function cargarArmas() {
   productosContainer.innerHTML = '';
 
@@ -47,8 +47,6 @@ function cargarArmas() {
   });
 }
 
-cargarArmas();
-
 // Manejo de agregar al carrito
 productosContainer.addEventListener('click', (e) => {
   if (e.target.tagName === 'BUTTON' && !e.target.disabled) {
@@ -60,7 +58,8 @@ productosContainer.addEventListener('click', (e) => {
       return;
     }
 
-    carrito.push(arma);
+    // Agregar al carrito
+    carrito.push({ arma: arma, index: index });
     total += arma.valor;
     arma.stock--;
 
@@ -69,12 +68,36 @@ productosContainer.addEventListener('click', (e) => {
   }
 });
 
-// Actualizar el contenido del carrito
+// Quitar un item del carrito
+carritoLista.addEventListener('click', (e) => {
+  // Si haces click en un item del carrito, lo quitamos
+  if (e.target && e.target.dataset && e.target.dataset.carritoIndex !== undefined) {
+    const carritoIndex = parseInt(e.target.dataset.carritoIndex);
+    const item = carrito[carritoIndex];
+    const arma = item.arma;
+    const indexEnStore = item.index;
+
+    // Restaurar stock
+    armasStore[indexEnStore].stock++;
+
+    // Restar del total
+    total -= arma.valor;
+
+    // Quitar del arreglo carrito
+    carrito.splice(carritoIndex, 1);
+
+    // Actualizar vista
+    actualizarCarrito();
+    cargarArmas();
+  }
+});
+
+// Actualizar el contenido del carrito en el DOM
 function actualizarCarrito() {
   carritoLista.innerHTML = '';
   carrito.forEach((item, idx) => {
     const li = document.createElement('li');
-    li.textContent = `${item.nombre} - ${item.valor} créditos`;
+    li.innerHTML = `${item.arma.nombre} - ${item.arma.valor} créditos <button class="btn-quitar" data-carrito-index="${idx}">Quitar</button>`;
     carritoLista.appendChild(li);
   });
   carritoTotal.textContent = total;
@@ -107,8 +130,12 @@ btnVolver.addEventListener('click', () => {
   window.location.href = "index.html";
 });
 
-// Colapsar/expandir carrito
+// Colapsar / expandir carrito
 toggleCarritoBtn.addEventListener('click', () => {
   const colapsado = carritoContenedor.classList.toggle('colapsado');
   toggleCarritoBtn.innerText = colapsado ? '➕' : '➖';
 });
+
+// Inicializar
+cargarArmas();
+actualizarCarrito();
