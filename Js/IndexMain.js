@@ -118,7 +118,7 @@ btnReiniciar.addEventListener('click', () => {
 });
 
 btnIrStore.addEventListener('click', () => {
-  mensajeSiguiente.classList.remove('hidden');
+  window.location.href = 'Store.html';
 });
 
 function mostrarCredencial(j) {
