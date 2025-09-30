@@ -11,6 +11,18 @@ const carritoContenedor = document.getElementById('carrito-compras');
 let carrito = [];
 let total = 0;
 
+// Función para mostrar toast con Toastify (abajo a la derecha)
+function mostrarToast(mensaje, color = "#4caf50", duracion = 2500) {
+  Toastify({
+    text: mensaje,
+    duration: duracion,
+    gravity: "bottom", // ahora abajo
+    position: "right", // y a la derecha
+    backgroundColor: color
+  }).showToast();
+}
+
+// Cargar armas en la vista
 function cargarArmas() {
   productosContainer.innerHTML = '';
 
@@ -48,53 +60,7 @@ function cargarArmas() {
   });
 }
 
-productosContainer.addEventListener('click', (e) => {
-  if (e.target.tagName === 'BUTTON' && !e.target.disabled) {
-    const index = parseInt(e.target.getAttribute('data-index'));
-    const arma = armasStore[index];
-
-    if (arma.stock <= 0) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Agotado',
-        text: 'Esta arma está agotada.'
-      });
-      return;
-    }
-
-    carrito.push({ arma: arma, index: index });
-    total += arma.valor;
-    arma.stock--;
-
-    let stockActualizado = {};
-    armasStore.forEach(a => stockActualizado[a.nombre] = a.stock);
-    localStorage.setItem('stockArmas', JSON.stringify(stockActualizado));
-
-    actualizarCarrito();
-    cargarArmas();
-  }
-});
-
-carritoLista.addEventListener('click', (e) => {
-  if (e.target && e.target.dataset && e.target.dataset.carritoIndex !== undefined) {
-    const carritoIndex = parseInt(e.target.dataset.carritoIndex);
-    const item = carrito[carritoIndex];
-    const arma = item.arma;
-    const indexEnStore = item.index;
-
-    armasStore[indexEnStore].stock++;
-    total -= arma.valor;
-    carrito.splice(carritoIndex, 1);
-
-    let stockActualizado = {};
-    armasStore.forEach(a => stockActualizado[a.nombre] = a.stock);
-    localStorage.setItem('stockArmas', JSON.stringify(stockActualizado));
-
-    actualizarCarrito();
-    cargarArmas();
-  }
-});
-
+// Actualizar carrito en la vista
 function actualizarCarrito() {
   carritoLista.innerHTML = '';
   carrito.forEach((item, idx) => {
@@ -105,30 +71,81 @@ function actualizarCarrito() {
   carritoTotal.textContent = total;
 }
 
+// Cargar stock guardado en localStorage
+function cargarStockGuardado() {
+  const stockGuardado = JSON.parse(localStorage.getItem('stockArmas')) || {};
+  armasStore.forEach(a => {
+    const cantidadEnCarrito = carrito.filter(c => c.arma.nombre === a.nombre).length;
+    a.stock = (stockGuardado[a.nombre] !== undefined ? stockGuardado[a.nombre] : a.stock) - cantidadEnCarrito;
+    if (a.stock < 0) a.stock = 0;
+  });
+}
+
+// Manejo de agregar arma al carrito
+productosContainer.addEventListener('click', (e) => {
+  if (e.target.tagName === 'BUTTON' && !e.target.disabled) {
+    const index = parseInt(e.target.getAttribute('data-index'));
+    const arma = armasStore[index];
+
+    if (arma.stock <= 0) {
+      mostrarToast(`La arma "${arma.nombre}" está agotada.`, "#ff6b6b");
+      return;
+    }
+
+    carrito.push({ arma: arma, index: index });
+    total += arma.valor;
+    arma.stock--;
+
+    let stockActualizado = {};
+    armasStore.forEach(a => stockActualizado[a.nombre] = a.stock + carrito.filter(c => c.arma.nombre === a.nombre).length);
+    localStorage.setItem('stockArmas', JSON.stringify(stockActualizado));
+
+    actualizarCarrito();
+    cargarArmas();
+
+    mostrarToast(`"${arma.nombre}" agregado al carrito.`);
+  }
+});
+
+// Manejo de quitar del carrito
+carritoLista.addEventListener('click', (e) => {
+  if (e.target && e.target.dataset && e.target.dataset.carritoIndex !== undefined) {
+    const carritoIndex = parseInt(e.target.dataset.carritoIndex);
+    const item = carrito[carritoIndex];
+    const arma = item.arma;
+    const indexEnStore = item.index;
+
+    carrito.splice(carritoIndex, 1);
+    total -= arma.valor;
+    armasStore[indexEnStore].stock++;
+
+    let stockActualizado = {};
+    armasStore.forEach(a => stockActualizado[a.nombre] = a.stock + carrito.filter(c => c.arma.nombre === a.nombre).length);
+    localStorage.setItem('stockArmas', JSON.stringify(stockActualizado));
+
+    actualizarCarrito();
+    cargarArmas();
+
+    mostrarToast(`"${arma.nombre}" removido del carrito.`, "#f9a825");
+  }
+});
+
+// Finalizar compra
 btnFinalizarCompra.addEventListener('click', () => {
   const jugadorGuardado = localStorage.getItem('jugador');
   if (!jugadorGuardado) {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Atención',
-      text: 'No hay un jugador creado.'
-    });
+    mostrarToast("No hay un jugador creado.", "#ff6b6b");
     return;
   }
 
   const jugador = JSON.parse(jugadorGuardado);
 
   if (total > jugador.balanceCreditos) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Créditos insuficientes',
-      text: 'No tienes suficientes créditos.'
-    });
+    mostrarToast("No tienes suficientes créditos.", "#ff6b6b");
     return;
   }
 
   jugador.balanceCreditos -= total;
-
   const efectosConOrigen = [];
   const nombresArmasCompradas = [];
 
@@ -140,10 +157,7 @@ btnFinalizarCompra.addEventListener('click', () => {
     if (arma.modificadorDestreza) jugador.destreza += arma.modificadorDestreza;
     if (arma.modificadorSuerte) jugador.suerte += arma.modificadorSuerte;
 
-    arma.efectosEspeciales.forEach(e => {
-      efectosConOrigen.push(`${e} (de ${arma.nombre})`);
-    });
-
+    arma.efectosEspeciales.forEach(e => efectosConOrigen.push(`${e} (de ${arma.nombre})`));
     nombresArmasCompradas.push(arma.nombre);
   });
 
@@ -151,17 +165,21 @@ btnFinalizarCompra.addEventListener('click', () => {
   jugador.armasCompradas = (jugador.armasCompradas || []).concat(nombresArmasCompradas);
 
   localStorage.setItem('jugador', JSON.stringify(jugador));
-
   carrito = [];
   total = 0;
 
+  // ✅ SweetAlert para compra exitosa
   Swal.fire({
-    icon: 'success',
-    title: 'Compra realizada',
-    text: 'Tus armas se han agregado correctamente.'
-  }).then(() => window.location.href = 'index.html');
+    title: "¡Compra realizada con éxito!",
+    text: "Tus armas se han añadido al inventario.",
+    icon: "success",
+    confirmButtonText: "Aceptar"
+  }).then(() => {
+    window.location.href = 'index.html';
+  });
 });
 
+// Botones adicionales
 btnVolver.addEventListener('click', () => {
   window.location.href = "index.html";
 });
@@ -171,14 +189,17 @@ toggleCarritoBtn.addEventListener('click', () => {
   toggleCarritoBtn.innerText = colapsado ? '➕' : '➖';
 });
 
+// Inicialización después de cargar datos del JSON
 datosListos.then(() => {
-  let stockGuardado = JSON.parse(localStorage.getItem('stockArmas')) || {};
-  armasStore.forEach((arma) => {
-    if (stockGuardado[arma.nombre] !== undefined) {
-      arma.stock = stockGuardado[arma.nombre];
-    }
-  });
+  carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+  total = carrito.reduce((acc, item) => acc + item.arma.valor, 0);
 
+  cargarStockGuardado();
   cargarArmas();
   actualizarCarrito();
+});
+
+// Guardar carrito automáticamente en localStorage al salir
+window.addEventListener('beforeunload', () => {
+  localStorage.setItem('carrito', JSON.stringify(carrito));
 });
