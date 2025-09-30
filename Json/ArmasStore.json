@@ -123,8 +123,8 @@
     {
       "nombre": "Pergamino Antiguo",
       "modificadorSalud": 0,
-      "modificadorFuerza": 35,
-      "modificadorInteligencia": 0,
+      "modificadorFuerza": 0,
+      "modificadorInteligencia": 35,
       "modificadorDestreza": 0,
       "modificadorSuerte": 0,
       "efectosEspeciales": [],

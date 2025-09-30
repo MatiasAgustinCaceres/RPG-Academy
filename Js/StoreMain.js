@@ -156,10 +156,14 @@ btnFinalizarCompra.addEventListener('click', () => {
     if (arma.modificadorInteligencia) jugador.inteligencia += arma.modificadorInteligencia;
     if (arma.modificadorDestreza) jugador.destreza += arma.modificadorDestreza;
     if (arma.modificadorSuerte) jugador.suerte += arma.modificadorSuerte;
-
-    arma.efectosEspeciales.forEach(e => efectosConOrigen.push(`${e} (de ${arma.nombre})`));
-    nombresArmasCompradas.push(arma.nombre);
+    
+    arma.efectosEspeciales.forEach(e => {
+      efectosConOrigen.push(`${arma.nombre}: "${e}"`);
   });
+
+  nombresArmasCompradas.push(arma.nombre);
+});
+
 
   jugador.efectosEspeciales = (jugador.efectosEspeciales || []).concat(efectosConOrigen);
   jugador.armasCompradas = (jugador.armasCompradas || []).concat(nombresArmasCompradas);
